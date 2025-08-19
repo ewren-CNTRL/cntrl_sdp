@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SDP App Dev Repository - Technical Tools & Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.2));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(51, 65, 85, 0.6));
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .card:hover::before {
+            left: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .card h2 {
+            color: #60a5fa;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .card p {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+        
+        .features li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #64748b, #475569);
+            margin-left: 0.5rem;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #475569, #334155);
+            box-shadow: 0 8px 25px rgba(100, 116, 139, 0.4);
+        }
+        
+        .tech-stack {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .tech-stack h3 {
+            color: #60a5fa;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .tech-item {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            border-radius: 8px;
+            padding: 1rem 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .tech-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .tech-name {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+        
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .status-beta {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            header {
+                padding: 2rem 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="floating">SDP App Dev Repository</h1>
+            <p>Technical Tools & Documentation Hub</p>
+        </header>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📚</div>
+                    <h2>ServiceDesk Plus Manual</h2>
+                </div>
+                <span class="status-badge status-active">Active</span>
+                <p>Comprehensive technical documentation for the App Dev group's ServiceDesk Plus workflows, API integrations, and automation processes.</p>
+                
+                <ul class="features">
+                    <li>Complete ITSM workflow documentation</li>
+                    <li>API integration examples</li>
+                    <li>Ticket lifecycle management</li>
+                    <li>Automation & scripting guides</li>
+                    <li>Troubleshooting & FAQ section</li>
+                </ul>
+                
+                <div>
+                    <a href="sdp_appdev_manual.html" class="btn">📖 View Manual</a>
+                    <button class="btn btn-secondary" onclick="copyLink('sdp_appdev_manual.html')">🔗 Copy Link</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🔍</div>
+                    <h2>HTML Inspector Tool</h2>
+                </div>
+                <span class="status-badge status-beta">Beta</span>
+                <p>Advanced browser-based HTML inspection tool with multiple themes, element hiding capabilities, and code generation features.</p>
+                
+                <ul class="features">
+                    <li>Real-time element inspection</li>
+                    <li>Live preview mode</li>
+                    <li>Multiple color themes</li>
+                    <li>Code snippet generation</li>
+                    <li>Element hiding & CSS creation</li>
+                    <li>Drag & drop interface</li>
+                </ul>
+                
+                <div>
+                    <button class="btn" onclick="loadInspector()">🚀 Load Inspector</button>
+                    <button class="btn btn-secondary" onclick="viewInspectorCode()">💻 View Code</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tech-stack">
+            <h3>🛠️ Technology Stack</h3>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <span class="tech-emoji">🌐</span>
+                    <div class="tech-name">HTML5</div>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">🎨</span>
+                    <div class="tech-name">CSS3</div>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">⚡</span>
+                    <div class="tech-name">JavaScript</div>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">📱</span>
+                    <div class="tech-name">Responsive</div>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">🔧</span>
+                    <div class="tech-name">ServiceDesk Plus</div>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">🚀</span>
+                    <div class="tech-name">ES5 Compatible</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2024 App Dev Group • Built with ❤️ and lots of ☕</p>
+            <p>Press F12 to access browser developer tools</p>
+        </footer>
+    </div>
+    
+    <script>
+        function copyLink(filename) {
+            const url = window.location.origin + window.location.pathname.replace('index.html', '') + filename;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('Link copied to clipboard!');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Link copied to clipboard!');
+            }
+        }
+        
+        function loadInspector() {
+            const script = document.createElement('script');
+            script.src = 'html_inspector.js';
+            script.onload = () => {
+                showNotification('HTML Inspector loaded! Press F12 to activate.');
+            };
+            script.onerror = () => {
+                showNotification('Failed to load inspector. Check console for errors.', 'error');
+            };
+            document.head.appendChild(script);
+        }
+        
+        function viewInspectorCode() {
+            window.open('html_inspector.js', '_blank');
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 'linear-gradient(135deg, #10b981, #059669)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+                z-index: 10000;
+                font-family: inherit;
+                font-weight: 600;
+                backdrop-filter: blur(10px);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            // Add keyframes for animation
+            if (!document.getElementById('notificationStyles')) {
+                const style = document.createElement('style');
+                style.id = 'notificationStyles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease forwards';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add parallax effect to header
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('header');
+                if (header) {
+                    header.style.transform = 'translateY(' + (scrolled * 0.1) + 'px)';
+                }
+            });
+            
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
