@@ -1,6 +1,6 @@
 # What Is Request Life Cycle?
 
-Request Life Cycle in ServiceDesk Plus allows admins to formulate a request resolution process with built-in guidance for the help desk technician. Through a simple drag and drop process, the SDAdmin can create a visual process builder and define the resolution process. You can create, discuss, and rework the process drafts before publishing the life cycle. 
+    Request Life Cycle in ServiceDesk Plus allows admins to formulate a request resolution process with built-in guidance for the help desk technician. Through a simple drag and drop process, the SDAdmin can create a visual process builder and define the resolution process. You can create, discuss, and rework the process drafts before publishing the life cycle. 
 
 [Request Life Cycle Overview: Video](https://www.youtube.com/watch?v=9YFaDTvuBVY)  
  
